@@ -1,0 +1,173 @@
+mysql 터미널로 접속 하는 법
+
+mysql의 실행파일이 있는 곳으로 move
+cd /usr/local/mysql/bin
+
+root라는 아이디로 접속하겠다. 아래처럼 입력하면 알아서 password 입력창이 나옴 비밀번호는 꼭 기억해둘것
+./mysql -u root -p
+
+비번 입력하면 접속 끝
+
+
+mySQL은 mySQL서버, 그안에 데이터베이스(스키마) 안에 테이블 구조로 이루어져있고 위에 처럼 입력하여 mysql에 접속했다면 mySQL서버에 접속한 것이다.
+그렇다면 가장 먼저 해야할 것은 스키마를 만드는 것
+
+CREATE DATABASE [스키마이름];
+
+스키마는 한 앱에서 쓰이는 테이블들을 모아논 컨테이너라고 이해하면 쉬울듯?
+
+여기까지 했으면 스키마가 잘 생성됐는지 확인
+
+show databases;
+
+어떤 스키마를 선택해서 작업하겠다면
+
+USE [스키마이름];
+
+으로 이동하면 된다.
+
+실질적으로 쓰이는건 테이블이니 테이블을 만든다.
+
+CREATE TABLE [테이블명](
+          [1번 컬럼명] [데이터자료형] [옵션1,2,3,....],
+          [2번 컬럼명] [데이터자료형] [옵션1,2,3,....],
+          [3번 컬럼명] [데이터자료형] [옵션1,2,3,....],
+          [4번 컬럼명] [데이터자료형] [옵션1,2,3,....],
+          PRIMARY KEY(1번 컬럼명));
+          
+자료형이 겁나 많으니 검색해서 그 필드에 맞는 자료형과 옵션을 붙이길
+옵션도 검색해서 쓰길
+
+테이블을 만들었으면 데이터를 넣어줘야 보기 좋다.
+데이터를 넣는건 INSERT문을 사용한다.
+
+INSERT문을 사용하기 전에 시각화를 해서 보려면
+
+DESC [테이블명];
+
+을 쳐보면 자료형과 필드명 Null, notNull등등 옵션을 확인할 수 있다.
+
+INSERT INTO [테이블명] (2번 컬럼명, 3번 컬럼명, 4번 컬럼명) VALUES('2번 컬럼값', '3번 컬럼값', '4번 컬럼값');
+
+컬럼명과 컬럼값을 순서에 맞게 넣어주면 생성이 된다.
+나는 여기서 DATE를 입력하는게 있었는데 컬럼값으로 NOW() 함수를 사용하니 현재 시간이 입력되었다.
+그리고 추가적으로 profile이라는 컬럼명을 progile로 잘못 적었는데
+
+ALTER TABLE [테이블명] CHANGE [기존컬럼명] [변경할컬럼명] [컬럼타입];
+
+으로 고쳤다.
+
+--------------------- SELECT ------------------------------
+
+select는 그냥 *, 컬럼명 등 간단한것만 해서 쉬울 줄 알았건만 겁나 복잡하다.
+
+SELECT
+    [ALL | DISTINCT | DISTINCTROW ]
+    [HIGH_PRIORITY]
+    [STRAIGHT_JOIN]
+    [SQL_SMALL_RESULT] [SQL_BIG_RESULT] [SQL_BUFFER_RESULT]
+    [SQL_NO_CACHE] [SQL_CALC_FOUND_ROWS]
+    select_expr [, select_expr] ...
+    [into_option]
+    [FROM table_references
+      [PARTITION partition_list]]
+    [WHERE where_condition]
+    [GROUP BY {col_name | expr | position}, ... [WITH ROLLUP]]
+    [HAVING where_condition]
+    [WINDOW window_name AS (window_spec)
+        [, window_name AS (window_spec)] ...]
+    [ORDER BY {col_name | expr | position}
+      [ASC | DESC], ... [WITH ROLLUP]]
+    [LIMIT {[offset,] row_count | row_count OFFSET offset}]
+    [into_option]
+    [FOR {UPDATE | SHARE}
+        [OF tbl_name [, tbl_name] ...]
+        [NOWAIT | SKIP LOCKED]
+      | LOCK IN SHARE MODE]
+    [into_option]
+
+into_option: {
+    INTO OUTFILE 'file_name'
+        [CHARACTER SET charset_name]
+        export_options
+  | INTO DUMPFILE 'file_name'
+  | INTO var_name [, var_name] ...
+}
+
+이게 한 명령어가 될 수 있다... [ ] 안에 있는건 선택사항이다. 그러나 중요한건 옵션의 순서는 중요하므로 잘 확인해야한다.
+예를 들어 WHERE은 FROM의 앞에 올 수 없다.
+쿼리문은 굉장히 배우기 쉽고 간단하지만 깊게 들어가면 어렵다고 알고 있다. 그 깊이는 SELECT에서 나오지 않을까 생각이 든다.
+
+
+mysql> SELECT [컬럼명1],[컬럼명2],[컬럼명3],[컬럼명4] FROM [테이블명] WHERE [컬럼명]='컬럼값';
+mysql> SELECT id,title,created,author FROM topic WHERE author='jaewon';
+
+[테이블명] 에서 컬럼명이 '컬럼값'인 [컬럼1,2,3,4]만 보겠다.
+
+mysql> SELECT id,title,created,author FROM topic WHERE author='jaewon' ORDER BY id DESC LIMIT 2;
+추가적으로 내림차순으로 보고 최대 2개까지 표시해달라는 뜻
+
+
+---------------------------UPDATE---------------------------------------
+
+Single-table syntax:
+
+
+UPDATE [LOW_PRIORITY] [IGNORE] table_reference
+    SET assignment_list
+    [WHERE where_condition]
+    [ORDER BY ...]
+    [LIMIT row_count]
+
+value:
+    {expr | DEFAULT}
+
+assignment:
+    col_name = value
+
+assignment_list:
+    assignment [, assignment] ...
+          
+          
+          
+Multiple-table syntax:
+
+UPDATE [LOW_PRIORITY] [IGNORE] table_references
+    SET assignment_list
+    [WHERE where_condition]
+    
+
+
+mysql> UPDATE [테이블명] SET [컬럼명] = '컬럼값', [컬럼명]='컬럼값' WHERE [컬럼명] = [컬럼값];
+mysql> UPDATE topic SET description = 'Oracle is ...', title='Oracle' WHERE id = 2;
+topic 이라는 스키마의 id값이 2인 행의 description은 'Oracle is ...'로 , title은 'Oracle'로 바꾼다. 
+여기서 where문이 중요하다. where를 바꾼다면 모든 행의 description과 title이 전부 바뀔 것이다.
+
+-----------------------------------DELETE---------------------------
+
+Single-Table Syntax
+
+
+DELETE [LOW_PRIORITY] [QUICK] [IGNORE] FROM tbl_name [[AS] tbl_alias]
+    [PARTITION (partition_name [, partition_name] ...)]
+    [WHERE where_condition]
+    [ORDER BY ...]
+    [LIMIT row_count]
+
+
+Multiple-Table Syntax
+
+DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
+    tbl_name[.*] [, tbl_name[.*]] ...
+    FROM table_references
+    [WHERE where_condition]
+
+DELETE [LOW_PRIORITY] [QUICK] [IGNORE]
+    FROM tbl_name[.*] [, tbl_name[.*]] ...
+    USING table_references
+    [WHERE where_condition]
+
+mysql> DELETE FROM [테이블명] WHERE [컬럼명] = [컬럼값];
+mysql> DELETE FROM topic WHERE id = 5;
+topic이라는 스키마의 id값이 5인 행을 지운다.
+여기서도 또한 where를 잘못 설정하면 다 날라간다.
