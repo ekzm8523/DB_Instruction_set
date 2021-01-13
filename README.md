@@ -46,7 +46,7 @@ mysql> INSERT INTO topic VALUES (1,'HTML','HTML is ...', '1'),(2, 'CSS', 'CSS is
 ![스크린샷 2021-01-13 13 43 15](https://user-images.githubusercontent.com/67869514/104407590-4c1f0c00-55a5-11eb-8862-be02752bc441.png)
 
 
-# LEFT JOIN
+# LEFT JOIN ( A + A ∩ B )
 
 mysql> SELECT * FROM topic LEFT JOIN author ON topic.author_id=author.aid;
 
@@ -63,6 +63,23 @@ mysql> SELECT tid,topic.title,author_id,name,profile.title as jobtitle FROM topi
 mysql> SELECT tid,topic.title,author_id,name,profile.title as jobtitle FROM topic LEFT JOIN author ON topic.author_id=author.aid LEFT JOIN profile ON author.profile_id=profile.pid WHERE aid=1;
 
 ![스크린샷 2021-01-13 14 15 27](https://user-images.githubusercontent.com/67869514/104409517-c9e51680-55a9-11eb-9b9a-26df93fe6560.png)
+
+
+# INNER JOIN
+## Inner Join은 LEFT JOIN , RIGHT JOIN 보다 조금 더 엄격해서 NULL값으로 되어있는 relation은 가져오지 않는다. ( A ∩ B )
+
+mysql> SELECT * FROM topic LEFT JOIN author ON topic.author_id=author.aid INNER JOIN profile ON author.profile_id=profile.pid;
+
+![스크린샷 2021-01-13 14 24 46](https://user-images.githubusercontent.com/67869514/104410148-18df7b80-55ab-11eb-9a63-590db35197a0.png)
+
+# FULL OUTER JOIN (A u B)
+## FULL OUTER JOIN 은 합집합이고 LEFT JOIN + RIGHT JOIN 후 중복 제거를 한것인데 잘 쓰이지 않음 많은 DB에서 지원하지 않는 모델
+
+# EXCLUSIVE JOIN
+## A - (A ∩ B) 이것도 웬만하면 쓰지 않을듯...? 필요할떄 검색 ㄱㄱ
+
+![스크린샷 2021-01-13 14 37 51](https://user-images.githubusercontent.com/67869514/104411020-edf62700-55ac-11eb-9fa7-84a6c753a1d1.png)
+
 
 
 
