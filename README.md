@@ -51,7 +51,41 @@ SELECT ANIMAL_ID, NAME FROM ANIMAL_INS ORDER BY ANIMAL_ID ASC;
 SELECT ANIMAL_ID, NAME, DATETIME FROM ANIMAL_INS ORDER BY NAME ASC, DATETIME DESC;
 
 
-### 동물 보호소에 가장 먼저 들어온 동물의 이름을 조회하는 SQL 문을 작성해주세요.
+## 동물 보호소에 가장 먼저 들어온 동물의 이름을 조회하는 SQL 문을 작성해주세요.
 
 SELECT NAME FROM ANIMAL_INS ORDER BY DATETIME ASC LIMIT 1;
 
+
+## 가장 최근에 들어온 동물은 언제 들어왔는지 조회하는 SQL 문을 작성해주세요.
+
+SELECT MAX(DATETIME) FROM ANIMAL_INS ;
+### MAX 함수를 쓰는게 편하긴 하지만 조회를 많이 하기 때문에 과부화가 올 수 있어 최적화된 방법이 따로 있다. 나중에 성장해서 쓰겠음..
+
+##동물 보호소에 가장 먼저 들어온 동물은 언제 들어왔는지 조회하는 SQL 문을 작성해주세요.
+
+SELECT MIN(DATETIME) FROM ANIMAL_INS;
+
+
+##동물 보호소에 동물이 몇 마리 들어왔는지 조회하는 SQL 문을 작성해주세요.
+
+SELECT COUNT(*) FROM ANIMAL_INS;
+
+## 동물 보호소에 들어온 동물의 이름은 몇 개인지 조회하는 SQL 문을 작성해주세요. 이때 이름이 NULL인 경우는 집계하지 않으며 중복되는 이름은 하나로 칩니다.
+
+SELECT COUNT(DISTINCT NAME) FROM ANIMAL_INS 
+NOT NAME IS NULL;
+
+
+## 동물 보호소에 들어온 동물 중 고양이와 개가 각각 몇 마리인지 조회하는 SQL문을 작성해주세요. 이때 고양이를 개보다 먼저 조회해주세요.
+
+SELECT ANIMAL_TYPE, COUNT(*) FROM ANIMAL_INS GROUP BY ANIMAL_TYPE ORDER BY ANIMAL_TYPE ASC;
+
+## 보호소에서는 몇 시에 입양이 가장 활발하게 일어나는지 알아보려 합니다. 09:00부터 19:59까지, 각 시간대별로 입양이 몇 건이나 발생했는지 조회하는 SQL문을 작성해주세요. 이때 결과는 시간대 순으로 정렬해야 합니다.
+
+
+SELECT 
+HOUR(DATETIME),COUNT(*) 
+FROM ANIMAL_OUTS
+WHERE HOUR(DATETIME)>=9 AND HOUR(DATETIME)<=19
+GROUP BY HOUR(DATETIME) 
+ORDER BY HOUR(DATETIME) ASC;
