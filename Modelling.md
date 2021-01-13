@@ -46,3 +46,24 @@ tag컬럼처럼 컬럼값이 여러개라면 Where문으로 찾을때나 정렬�
 ### 2. No partial dependencies 
 
 중복키를 없애는게 2단계 부분종속성을 없앤다.
+
+![스크린샷 2021-01-13 18 49 09](https://user-images.githubusercontent.com/67869514/104435710-088dc780-55d0-11eb-949a-ec93311909c9.png)
+
+
+### 3. No transitive dependencies
+
+이중 의존성을 가지면 안된다.
+
+![스크린샷 2021-01-13 18 54 56](https://user-images.githubusercontent.com/67869514/104436352-d761c700-55d0-11eb-9fcb-693459bf6a7f.png)
+
+
+## 물리적 데이터 모델링
+denormalization (역정규화 , 쓰기성능 UP 읽기성능 DOWN)
+- 컬럼을 조작해서 join을 줄이기
+- 컬럼을 조작해서 계산을 줄이기
+- 표를 쪼개기 ( 열을 기준으로, 행을 기준으로 )
+- 관계의 역 정규화
+등등 여러가지 denormalization이 있다. 역정규화를 하면서 이득과 손해가 있을텐데 저울질을 잘해서 이득인 방법을 적용할것!
+
+index (읽기성능 UP 쓰기성능 DOWN)
+
