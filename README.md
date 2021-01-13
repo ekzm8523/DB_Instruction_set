@@ -12,6 +12,7 @@
 
 ## JOIN
 ### JOIN은 RDS를 RDS답게 만드는 명령어이다. 관계를 맺게 해준다.
+##https://sql-joins.leopard.in.ua
 
 ### mysql> SELECT * FROM author;
 ![스크린샷 2021-01-12 20 32 52](https://user-images.githubusercontent.com/67869514/104309344-5b567900-5515-11eb-875a-d417db405055.png)
@@ -43,4 +44,26 @@ mysql> CREATE TABLE topic( tid int(11) NOT NULL, title varchar(45) DEFAULT NULL,
 mysql> INSERT INTO topic VALUES (1,'HTML','HTML is ...', '1'),(2, 'CSS', 'CSS is ...', '2'),(3, 'JavaScript', 'JavaScript is ...', '1'),(4, 'Oracle', 'Oracle id ...',NULL);
 
 ![스크린샷 2021-01-13 13 43 15](https://user-images.githubusercontent.com/67869514/104407590-4c1f0c00-55a5-11eb-8862-be02752bc441.png)
+
+
+# LEFT JOIN
+
+mysql> SELECT * FROM topic LEFT JOIN author ON topic.author_id=author.aid;
+
+![스크린샷 2021-01-13 14 14 49](https://user-images.githubusercontent.com/67869514/104409469-b3d75600-55a9-11eb-88af-e76cab98cb9a.png)
+
+mysql> SELECT * FROM topic LEFT JOIN author ON topic.author_id=author.aid LEFT JOIN profile ON author.profile_id=profile.pid;
+
+![스크린샷 2021-01-13 14 14 35](https://user-images.githubusercontent.com/67869514/104409454-ab7f1b00-55a9-11eb-8dc4-bb1e5d4ab2c4.png)
+
+mysql> SELECT tid,topic.title,author_id,name,profile.title as jobtitle FROM topic LEFT JOIN author ON topic.author_id=author.aid LEFT JOIN profile ON author.profile_id=profile.pid;
+
+![스크린샷 2021-01-13 14 15 16](https://user-images.githubusercontent.com/67869514/104409505-c3ef3580-55a9-11eb-8fa7-307f0d35a539.png)
+
+mysql> SELECT tid,topic.title,author_id,name,profile.title as jobtitle FROM topic LEFT JOIN author ON topic.author_id=author.aid LEFT JOIN profile ON author.profile_id=profile.pid WHERE aid=1;
+
+![스크린샷 2021-01-13 14 15 27](https://user-images.githubusercontent.com/67869514/104409517-c9e51680-55a9-11eb-9b9a-26df93fe6560.png)
+
+
+
 
