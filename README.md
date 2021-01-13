@@ -31,3 +31,16 @@
 ### topic.id의 id가 애매하니 이름을 topic_id로 변경해서 출력하려면
 ### mysql> SELECT topic.id AS topic_id,title,description,created,name,profile  FROM topic LEFT JOIN author ON topic.author_id = author.id;
 ![스크린샷 2021-01-12 20 40 48](https://user-images.githubusercontent.com/67869514/104310066-75448b80-5516-11eb-90c4-a04c726ff9ed.png)
+
+mysql> CREATE TABLE author ( aid int(11) NOT NULL, name varchar(10) DEFAULT NULL, city varchar(10) DEFAULT NULL, profile_id int(11) DEFAULT NULL, PRIMARY KEY (aid))ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+mysql> INSERT INTO author VALUES (1,'jaewon','seoul',1),(2,'jaetwo','deokso',2),(3,'jaethree','incheon',3);
+              
+mysql> CREATE TABLE profile ( pid int(11) NOT NULL, title varchar(10) DEFAULT NULL, description tinytext, PRIMARY KEY (pid) )ENGINE=InnoDB DEFAULT CHARSET=utf8;
+mysql> INSERT INTO profile VALUES (1,'developer','developer is...'),(2,'designer','designer is ...'),(3,'DBA','DBA is...');
+
+mysql> CREATE TABLE topic( tid int(11) NOT NULL, title varchar(45) DEFAULT NULL, description tinytext, author_id varchar(45) DEFAULT NULL, PRIMARY KEY (tid) )ENGINE=innoDB DEFAULT CHARSET=utf8;
+mysql> INSERT INTO topic VALUES (1,'HTML','HTML is ...', '1'),(2, 'CSS', 'CSS is ...', '2'),(3, 'JavaScript', 'JavaScript is ...', '1'),(4, 'Oracle', 'Oracle id ...',NULL);
+
+![스크린샷 2021-01-13 13 43 15](https://user-images.githubusercontent.com/67869514/104407590-4c1f0c00-55a5-11eb-8862-be02752bc441.png)
+
