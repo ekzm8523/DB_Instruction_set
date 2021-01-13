@@ -42,3 +42,33 @@ l -> Mandatory
 
 ![스크린샷 2021-01-13 16 30 24](https://user-images.githubusercontent.com/67869514/104420042-a5df0080-55bc-11eb-88dc-6d706f406c39.png)
 
+
+## Normalization (정규화)
+### 일반적인 표를 관계형 데이터 베이스에 어울리는 표로 만드는 것
+### 최신의 정규화는 훨씬 더 복잡해서 학술적 논문같은데서 많이 다룬다. 우리는 그정도의 정규화는 필요없고 일반적으로 쓰이는 정도의 정규화를 알아볼것이다.
+
+### 1. Atomic columns 
+
+
+tag컬럼처럼 컬럼값이 여러개라면 Where문으로 찾을때나 정렬할때 애매모호하므로 테이블을 나누는게 1단계
+
+![스크린샷 2021-01-13 18 43 56](https://user-images.githubusercontent.com/67869514/104435101-55bd6980-55cf-11eb-81c2-bc96a16c8f22.png)
+
+### 2. No partial dependencies 
+
+중복키를 없애는게 2단계 부분종속성을 없앤다.
+
+![스크린샷 2021-01-13 18 49 09](https://user-images.githubusercontent.com/67869514/104435710-088dc780-55d0-11eb-949a-ec93311909c9.png)
+
+
+### 3. No transitive dependencies
+
+이중 의존성을 가지면 안된다.
+
+![스크린샷 2021-01-13 18 54 56](https://user-images.githubusercontent.com/67869514/104436352-d761c700-55d0-11eb-9fcb-693459bf6a7f.png)
+
+
+
+
+
+
