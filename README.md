@@ -102,3 +102,18 @@ WHERE @HOUR < 23
 
 ### SET @HOUR = -1; -> 변수생성
 ### (@HOUR := @HOUR + 1) HOUR, -> SQL에서는 := 이게 대입연산자임 
+
+## ERROR : Every derived table must have its own alias
+### 위와같은 에러는 alias(별명)을 안지어줘서 그럼
+EX ) 
+SELECT COUNT(NAME)
+FROM (
+    SELECT NAME
+    FROM ANIMAL_INS
+    GROUP BY NAME
+) A;
+여기서 맨 마지막 
+) A;줄
+) A;
+
+
