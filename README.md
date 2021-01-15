@@ -112,8 +112,6 @@ FROM (
     FROM ANIMAL_INS
     GROUP BY NAME
 ) A;
-여기서 맨 마지막 
-) A;줄
-) A;
+여기서 맨 마지막 줄의 A가 별명이다. 쿼리문을 던질때 임시 별명이라도 꼭 지어서 날릴것
 
 
