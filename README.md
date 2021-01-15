@@ -114,4 +114,13 @@ FROM (
 ) A;
 여기서 맨 마지막 줄의 A가 별명이다. 쿼리문을 던질때 임시 별명이라도 꼭 지어서 날릴것
 
+## 동물 보호소에 들어온 동물 이름 중 두 번 이상 쓰인 이름과 해당 이름이 쓰인 횟수를 조회하는 SQL문을 작성해주세요. 이때 결과는 이름이 없는 동물은 집계에서 제외하며, 결과는 이름 순으로 조회해주세요.
+
+### GROUP BY
+SELECT NAME, COUNT(NAME) AS cnt 
+FROM ANIMAL_INS 
+GROUP BY NAME
+HAVING cnt > 1
+ORDER BY NAME ASC;
+
 
